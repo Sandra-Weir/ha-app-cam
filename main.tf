@@ -8,12 +8,12 @@ variable "azs" {
 # AWS KeyName - Change it
 variable "KeyPair_Name" {
    description  = "Desired name of the AWS key pair"
-   default = "" 
+   default = ""
 }
 
 variable "Public_SSHKey" {
    description  = "Public SSH Key"
-   default = "" 
+   default = ""
 }
 
 #Subnets - Change it
@@ -24,7 +24,7 @@ variable "aws_subnet" {
 
 variable "ElasticLoadBalancer_Name" {
     description = "Elastic Load Balancer Name"
-    default = ""  
+    default = ""
 }
 
 provider "aws" {
@@ -77,7 +77,7 @@ resource "aws_lb_cookie_stickiness_policy" "default" {
 
 resource "aws_instance" "web" {
   instance_type     = "t2.micro"
-  count             = "4"
+  count             = "6"
   availability_zone = "${element(var.azs,count.index)}"
 
   # Lookup the correct AMI based on the region we specified
@@ -119,4 +119,3 @@ EOF
 output "loadbalancer" {
    value = "http://${aws_elb.web.dns_name}"
 }
-
